@@ -231,14 +231,6 @@ index 0000000000000000000000000000000000000000..90fadb71bfff9c2cc6cda6b355165b23
 +    }
 +}
 \ No newline at end of file
-diff --git a/src/main/java/net/yatopia/server/CLNoise.java b/src/main/java/net/yatopia/server/CLNoise.java
-new file mode 100644
-index 0000000000000000000000000000000000000000..958319b90fe13d0657ec2c3b1e75dfd0078d68e8
---- /dev/null
-+++ b/src/main/java/net/yatopia/server/CLNoise.java
-@@ -0,0 +1,2 @@
-+package net.yatopia.server;public class CLNoise {
-+}
 diff --git a/src/main/resources/opencl/net/glowstone/CLRandom.cl b/src/main/resources/opencl/net/glowstone/CLRandom.cl
 new file mode 100644
 index 0000000000000000000000000000000000000000..335395de7965586f9eb85bebf66f6bdccea5e9e9
