@@ -33,7 +33,7 @@ index 7a1de791e38507bc53ab232d42712217d0845754..01a1ecd1109a16170a8e692006beee24
  
      <repositories>
 diff --git a/src/main/java/dev/tr7zw/yatopia/YatopiaConfig.java b/src/main/java/dev/tr7zw/yatopia/YatopiaConfig.java
-index ef7d683db9e92dc6d64e9d7b4225c87637db8de2..14c86687ead9101d89652eee0150c60bafe2b62a 100644
+index ef7d683db9e92dc6d64e9d7b4225c87637db8de2..b5a64bdedd68c0ddb3da1098e43e128f5b31f279 100644
 --- a/src/main/java/dev/tr7zw/yatopia/YatopiaConfig.java
 +++ b/src/main/java/dev/tr7zw/yatopia/YatopiaConfig.java
 @@ -253,4 +253,9 @@ public class YatopiaConfig {
@@ -41,7 +41,7 @@ index ef7d683db9e92dc6d64e9d7b4225c87637db8de2..14c86687ead9101d89652eee0150c60b
          return org.spigotmc.SpigotConfig.bungee || com.destroystokyo.paper.PaperConfig.velocitySupport;
      }
 +
-+    public boolean useGPU = false;
++    public static boolean useGPU = false;
 +    private void useGPU() {
 +        useGPU = getBoolean("useGPU", false);
 +    }
