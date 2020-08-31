@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Bud Gidiere <sgidiere@gmail.com>
+Date: Sat, 29 Aug 2020 16:08:25 -0500
+Subject: [PATCH] 3 lines of code
+
+
+diff --git a/src/main/java/net/yatopia/server/NoiseAbstract.java b/src/main/java/net/yatopia/server/NoiseAbstract.java
+index 2a867d9a0b2dc9eec532dbefe31b363cfaa5d52d..6634ecd306a60810958e0f7a6e0e085519e6bd15 100644
+--- a/src/main/java/net/yatopia/server/NoiseAbstract.java
++++ b/src/main/java/net/yatopia/server/NoiseAbstract.java
+@@ -1,12 +1,14 @@
+ package net.yatopia.server;
+ 
+-import org.spongepowered.noise.*;
+-import org.bukkit.util.noise.NoiseGenerator;
++import org.bukkit.util.noise.PerlinNoiseGenerator;
++import org.bukkit.util.noise.PerlinOctaveGenerator;
++import org.spongepowered.noise.Noise;
+ 
+-public class NoiseAbstract extends NoiseGenerator {
++
++public class NoiseAbstract extends PerlinOctaveGenerator {
+ 
+     @Override
+-    public double noise(double v, double v1, double v2) {
+-        return 0;
++    public NoiseAbstract(long seed, int octaves, int quality) {
++        return(Noise.gradientCoherentNoise3D(?, ?, ?, seed))
+     }
+ }

@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Bud Gidiere <sgidiere@gmail.com>
+Date: Sat, 29 Aug 2020 15:25:36 -0500
+Subject: [PATCH] add override
+
+
+diff --git a/src/main/java/net/yatopia/server/NoiseAbstract.java b/src/main/java/net/yatopia/server/NoiseAbstract.java
+index 5cd733a9a3e55d0dfd288fbfae8703b8f2d364f7..2a867d9a0b2dc9eec532dbefe31b363cfaa5d52d 100644
+--- a/src/main/java/net/yatopia/server/NoiseAbstract.java
++++ b/src/main/java/net/yatopia/server/NoiseAbstract.java
+@@ -1,7 +1,12 @@
+ package net.yatopia.server;
+ 
+ import org.spongepowered.noise.*;
++import org.bukkit.util.noise.NoiseGenerator;
+ 
+-public class NoiseAbstract {
++public class NoiseAbstract extends NoiseGenerator {
+ 
++    @Override
++    public double noise(double v, double v1, double v2) {
++        return 0;
++    }
+ }

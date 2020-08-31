@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PhantomGaming27249 <jackjstark@gmail.com>
+Date: Mon, 31 Aug 2020 12:03:18 -0700
+Subject: [PATCH] Create NoiseAbstract.java
+
+
+diff --git a/src/main/java/net/yatopia/server/noise/NoiseAbstract.java b/src/main/java/net/yatopia/server/noise/NoiseAbstract.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..acf7ab83655b2969a42239bff88d3fefefed00ab
+--- /dev/null
++++ b/src/main/java/net/yatopia/server/noise/NoiseAbstract.java
+@@ -0,0 +1,19 @@
++package net.yatopia.server.noise;
++import org.spongepowered.noise.*;
++import java.util.Random;
++import org.bukkit.util.noise.NoiseGenerator;
++
++import static net.yatopia.server.noise.Noise.simplexStyleGradientCoherentNoise3D;
++
++public class NoiseAbstract extends NoiseGenerator {
++
++//find way to access world seed prior to world generation
++
++    @Override
++    public double noise(double v, double v1, double v2) {
++        Random rand = new Random();
++        int seed = rand.nextInt();
++        double noise = simplexStyleGradientCoherentNoise3D(v, v1, v2, seed, LatticeOrientation.CLASSIC, NoiseQualitySimplex.STANDARD);
++        return noise;
++    }
++}

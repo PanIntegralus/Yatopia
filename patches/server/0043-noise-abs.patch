@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Bud Gidiere <sgidiere@gmail.com>
+Date: Sat, 29 Aug 2020 15:18:55 -0500
+Subject: [PATCH] noise abs
+
+
+diff --git a/src/main/java/net/yatopia/server/NoiseAbstract.java b/src/main/java/net/yatopia/server/NoiseAbstract.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..5cd733a9a3e55d0dfd288fbfae8703b8f2d364f7
+--- /dev/null
++++ b/src/main/java/net/yatopia/server/NoiseAbstract.java
+@@ -0,0 +1,7 @@
++package net.yatopia.server;
++
++import org.spongepowered.noise.*;
++
++public class NoiseAbstract {
++
++}

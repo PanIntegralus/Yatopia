@@ -1,0 +1,737 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: PhantomGaming27249 <jackjstark@gmail.com>
+Date: Sun, 30 Aug 2020 18:27:42 -0700
+Subject: [PATCH] Refactored of noise
+
+move sponge noise code into its own package
+
+diff --git a/src/main/java/net/yatopia/server/NoiseAbstract.java b/src/main/java/net/yatopia/server/NoiseAbstract.java
+deleted file mode 100644
+index 6634ecd306a60810958e0f7a6e0e085519e6bd15..0000000000000000000000000000000000000000
+--- a/src/main/java/net/yatopia/server/NoiseAbstract.java
++++ /dev/null
+@@ -1,14 +0,0 @@
+-package net.yatopia.server;
+-
+-import org.bukkit.util.noise.PerlinNoiseGenerator;
+-import org.bukkit.util.noise.PerlinOctaveGenerator;
+-import org.spongepowered.noise.Noise;
+-
+-
+-public class NoiseAbstract extends PerlinOctaveGenerator {
+-
+-    @Override
+-    public NoiseAbstract(long seed, int octaves, int quality) {
+-        return(Noise.gradientCoherentNoise3D(?, ?, ?, seed))
+-    }
+-}
+diff --git a/src/main/java/net/yatopia/server/LatticeOrientation.java b/src/main/java/net/yatopia/server/noise/LatticeOrientation.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/LatticeOrientation.java
+rename to src/main/java/net/yatopia/server/noise/LatticeOrientation.java
+index 82145a9980b9b6890a0d00f8b79abe5f9fa5e7d8..797d7e2ac99581c23a0615484dbb9b9530f78fc9 100644
+--- a/src/main/java/net/yatopia/server/LatticeOrientation.java
++++ b/src/main/java/net/yatopia/server/noise/LatticeOrientation.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server;
++package net.yatopia.server.noise;
+ public enum LatticeOrientation {
+     /**
+      * Generates the simplex-style coherent noise with the classic lattice orientation. Might be better for texturing 3D models, but less good for generating terrain
+diff --git a/src/main/java/net/yatopia/server/Noise.java b/src/main/java/net/yatopia/server/noise/Noise.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/Noise.java
+rename to src/main/java/net/yatopia/server/noise/Noise.java
+index 212adb91ce0a97bdbff14444bdb57b02506ada64..fbf0ea7e7bda9f8bd257b196354af732b8df7e11 100644
+--- a/src/main/java/net/yatopia/server/Noise.java
++++ b/src/main/java/net/yatopia/server/noise/Noise.java
+@@ -27,8 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server;
+-import org.spongepowered.noise.*;
++package net.yatopia.server.noise;
+ 
+ public final class Noise {
+     private static final int X_NOISE_GEN = 1619;
+diff --git a/src/main/java/net/yatopia/server/NoiseQuality.java b/src/main/java/net/yatopia/server/noise/NoiseQuality.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/NoiseQuality.java
+rename to src/main/java/net/yatopia/server/noise/NoiseQuality.java
+index 4c24e14e0a06866982febeed9b1cf74d6dec1c49..333c0fb2fca56f3fb8e004aa70bf308293edf69b 100644
+--- a/src/main/java/net/yatopia/server/NoiseQuality.java
++++ b/src/main/java/net/yatopia/server/noise/NoiseQuality.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server;
++package net.yatopia.server.noise;
+ 
+ public enum NoiseQuality {
+     /**
+diff --git a/src/main/java/net/yatopia/server/NoiseQualitySimplex.java b/src/main/java/net/yatopia/server/noise/NoiseQualitySimplex.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/NoiseQualitySimplex.java
+rename to src/main/java/net/yatopia/server/noise/NoiseQualitySimplex.java
+index a331e357950be7fcf11b48cc7cbb9c34b1f2124e..08e6d9d604c595e5cb470ef5cc3687ec22f90eff 100644
+--- a/src/main/java/net/yatopia/server/NoiseQualitySimplex.java
++++ b/src/main/java/net/yatopia/server/noise/NoiseQualitySimplex.java
+@@ -27,9 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server;
+-
+-import org.spongepowered.noise.*;
++package net.yatopia.server.noise;
+ 
+ public enum NoiseQualitySimplex {
+     /**
+diff --git a/src/main/java/net/yatopia/server/Utils.java b/src/main/java/net/yatopia/server/noise/Utils.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/Utils.java
+rename to src/main/java/net/yatopia/server/noise/Utils.java
+index 4ec7c67682d1018fd487a29d2fc5f22a0a8892e8..5d265bb63c44df5f6b7942213baa135384fa7c8c 100644
+--- a/src/main/java/net/yatopia/server/Utils.java
++++ b/src/main/java/net/yatopia/server/noise/Utils.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server;
++package net.yatopia.server.noise;
+ public final class Utils {
+     private Utils() {
+     }
+diff --git a/src/main/java/net/yatopia/server/exception/NoModuleException.java b/src/main/java/net/yatopia/server/noise/exception/NoModuleException.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/exception/NoModuleException.java
+rename to src/main/java/net/yatopia/server/noise/exception/NoModuleException.java
+index 048ca20a266a714859813ef344f28fcdccce6e40..a50e0fe3a0f6c6661bf9e1df49f585098d1eb682 100644
+--- a/src/main/java/net/yatopia/server/exception/NoModuleException.java
++++ b/src/main/java/net/yatopia/server/noise/exception/NoModuleException.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.exception;
++package net.yatopia.server.noise.exception;
+ 
+ public class NoModuleException extends NoiseException {
+     private static final long serialVersionUID = 1;
+diff --git a/src/main/java/net/yatopia/server/exception/NoiseException.java b/src/main/java/net/yatopia/server/noise/exception/NoiseException.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/exception/NoiseException.java
+rename to src/main/java/net/yatopia/server/noise/exception/NoiseException.java
+index 47375a0abbd03f37f2a07f43277c441766a4a948..42f539ed146f44f9809a5d9bb658e43b68111085 100644
+--- a/src/main/java/net/yatopia/server/exception/NoiseException.java
++++ b/src/main/java/net/yatopia/server/noise/exception/NoiseException.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.exception;
++package net.yatopia.server.noise.exception;
+ 
+ public class NoiseException extends RuntimeException {
+     private static final long serialVersionUID = 1;
+diff --git a/src/main/java/net/yatopia/server/model/Cylinder.java b/src/main/java/net/yatopia/server/noise/model/Cylinder.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/model/Cylinder.java
+rename to src/main/java/net/yatopia/server/noise/model/Cylinder.java
+index d356cdb2ab11087152434818cbd2591c3e847e32..327db9015b5d037e8ad3ff64eb35663401842d92 100644
+--- a/src/main/java/net/yatopia/server/model/Cylinder.java
++++ b/src/main/java/net/yatopia/server/noise/model/Cylinder.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.model;
++package net.yatopia.server.noise.model;
+ 
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/model/Line.java b/src/main/java/net/yatopia/server/noise/model/Line.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/model/Line.java
+rename to src/main/java/net/yatopia/server/noise/model/Line.java
+index 09b51ab304fd7cc4f399973176b81c8eac648531..577ae547ab9533185d15e1a0a7d6432ff004c204 100644
+--- a/src/main/java/net/yatopia/server/model/Line.java
++++ b/src/main/java/net/yatopia/server/noise/model/Line.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.model;
++package net.yatopia.server.noise.model;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/model/Plane.java b/src/main/java/net/yatopia/server/noise/model/Plane.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/model/Plane.java
+rename to src/main/java/net/yatopia/server/noise/model/Plane.java
+index 3d0d7870db2d255330375381ebc5d89a9e3e0149..021d2229a09ba9c68524136794d1114f42549c7e 100644
+--- a/src/main/java/net/yatopia/server/model/Plane.java
++++ b/src/main/java/net/yatopia/server/noise/model/Plane.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.model;
++package net.yatopia.server.noise.model;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/model/Sphere.java b/src/main/java/net/yatopia/server/noise/model/Sphere.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/model/Sphere.java
+rename to src/main/java/net/yatopia/server/noise/model/Sphere.java
+index 1a3b1f23f1e3095ce165f7203571d7f14a47bc88..63aba119988b2456702a9c5e520d7fea7637ac33 100644
+--- a/src/main/java/net/yatopia/server/model/Sphere.java
++++ b/src/main/java/net/yatopia/server/noise/model/Sphere.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.model;
++package net.yatopia.server.noise.model;
+ import org.spongepowered.noise.Utils;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/module/Cache.java b/src/main/java/net/yatopia/server/noise/module/Cache.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/Cache.java
+rename to src/main/java/net/yatopia/server/noise/module/Cache.java
+index 2e080021dfbfafbd9b0b4457003d539fb7c1b0b9..810b30ef2057ddf5e4162b45a504cbdbf978f754 100644
+--- a/src/main/java/net/yatopia/server/module/Cache.java
++++ b/src/main/java/net/yatopia/server/noise/module/Cache.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module;
++package net.yatopia.server.noise.module;
+ 
+ 
+ import org.spongepowered.noise.exception.NoModuleException;
+diff --git a/src/main/java/net/yatopia/server/module/Module.java b/src/main/java/net/yatopia/server/noise/module/Module.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/Module.java
+rename to src/main/java/net/yatopia/server/noise/module/Module.java
+index 195a0e7812e5db8e8c436ae1ea9af129e5860261..b86b0856d132b9214728e37af68eba4c86c9903c 100644
+--- a/src/main/java/net/yatopia/server/module/Module.java
++++ b/src/main/java/net/yatopia/server/noise/module/Module.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module;
++package net.yatopia.server.noise.module;
+ 
+ import org.spongepowered.noise.exception.NoModuleException;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/combiner/Add.java b/src/main/java/net/yatopia/server/noise/module/combiner/Add.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/combiner/Add.java
+rename to src/main/java/net/yatopia/server/noise/module/combiner/Add.java
+index 10a033f589e057db7e646dddd73a5a292f1229f9..9be209444322a3e804259964f5838d4b6e75c0f0 100644
+--- a/src/main/java/net/yatopia/server/module/combiner/Add.java
++++ b/src/main/java/net/yatopia/server/noise/module/combiner/Add.java
+@@ -28,7 +28,7 @@
+  * THE SOFTWARE.
+  */
+ 
+-package net.yatopia.server.module.combiner;
++package net.yatopia.server.noise.module.combiner;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/combiner/Blend.java b/src/main/java/net/yatopia/server/noise/module/combiner/Blend.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/combiner/Blend.java
+rename to src/main/java/net/yatopia/server/noise/module/combiner/Blend.java
+index 534235e51bf277cdaf12f27be2bf31be622e2455..2a06fb185e76ec13ad33675fce4ae4e5d0d92e34 100644
+--- a/src/main/java/net/yatopia/server/module/combiner/Blend.java
++++ b/src/main/java/net/yatopia/server/noise/module/combiner/Blend.java
+@@ -28,7 +28,7 @@
+  * THE SOFTWARE.
+  */
+ 
+-package net.yatopia.server.module.combiner;
++package net.yatopia.server.noise.module.combiner;
+ import org.spongepowered.noise.Utils;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/module/combiner/Displace.java b/src/main/java/net/yatopia/server/noise/module/combiner/Displace.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/combiner/Displace.java
+rename to src/main/java/net/yatopia/server/noise/module/combiner/Displace.java
+index c83a800a9e5bb4843153d481bb65dd9774663cda..e35fc6e16391aaf118fb6e17e80df6f55647cf7d 100644
+--- a/src/main/java/net/yatopia/server/module/combiner/Displace.java
++++ b/src/main/java/net/yatopia/server/noise/module/combiner/Displace.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.combiner;
++package net.yatopia.server.noise.module.combiner;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/combiner/Max.java b/src/main/java/net/yatopia/server/noise/module/combiner/Max.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/combiner/Max.java
+rename to src/main/java/net/yatopia/server/noise/module/combiner/Max.java
+index f6e5a4c5112c4495b85f57258d1b5a4582cddd9c..34fd24a31ee07d3f117187f18ce504850f748bef 100644
+--- a/src/main/java/net/yatopia/server/module/combiner/Max.java
++++ b/src/main/java/net/yatopia/server/noise/module/combiner/Max.java
+@@ -28,7 +28,7 @@
+  * THE SOFTWARE.
+  */
+ 
+-package net.yatopia.server.module.combiner;
++package net.yatopia.server.noise.module.combiner;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/combiner/Min.java b/src/main/java/net/yatopia/server/noise/module/combiner/Min.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/combiner/Min.java
+rename to src/main/java/net/yatopia/server/noise/module/combiner/Min.java
+index 7e3bce594fe0fe3e294968d1dc0387ee754ef4b8..3ec4ac2babac212e94e2412b0043c19ffd9ba1b3 100644
+--- a/src/main/java/net/yatopia/server/module/combiner/Min.java
++++ b/src/main/java/net/yatopia/server/noise/module/combiner/Min.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.combiner;
++package net.yatopia.server.noise.module.combiner;
+ 
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/module/combiner/Multiply.java b/src/main/java/net/yatopia/server/noise/module/combiner/Multiply.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/combiner/Multiply.java
+rename to src/main/java/net/yatopia/server/noise/module/combiner/Multiply.java
+index a7b75bcd9528952e7b98b32a9c42e180b0dcb332..b1d40d0042e870cbb842558c3f969d42753b1a64 100644
+--- a/src/main/java/net/yatopia/server/module/combiner/Multiply.java
++++ b/src/main/java/net/yatopia/server/noise/module/combiner/Multiply.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.combiner;
++package net.yatopia.server.noise.module.combiner;
+ 
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/module/combiner/Power.java b/src/main/java/net/yatopia/server/noise/module/combiner/Power.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/combiner/Power.java
+rename to src/main/java/net/yatopia/server/noise/module/combiner/Power.java
+index c28eb9546307f139c3f9da676c8c5963bc4907d7..3fd73fc728f8752063900e7987c8039baed915ae 100644
+--- a/src/main/java/net/yatopia/server/module/combiner/Power.java
++++ b/src/main/java/net/yatopia/server/noise/module/combiner/Power.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.combiner;
++package net.yatopia.server.noise.module.combiner;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/combiner/Select.java b/src/main/java/net/yatopia/server/noise/module/combiner/Select.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/module/combiner/Select.java
+rename to src/main/java/net/yatopia/server/noise/module/combiner/Select.java
+index 6de4d1076e529db27d82e5a7385fe0c9545707fc..765c1dad5a51269400b42dfd950e1c733c59c7c7 100644
+--- a/src/main/java/net/yatopia/server/module/combiner/Select.java
++++ b/src/main/java/net/yatopia/server/noise/module/combiner/Select.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.combiner;
++package net.yatopia.server.noise.module.combiner;
+ 
+ import org.spongepowered.noise.Utils;
+ import org.spongepowered.noise.exception.NoModuleException;
+diff --git a/src/main/java/net/yatopia/server/module/modifier/Abs.java b/src/main/java/net/yatopia/server/noise/module/modifier/Abs.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/modifier/Abs.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/Abs.java
+index 76013789f0e972e0b01763248e3352b68a85deb0..724c6c85aa631527018a7a28221e4e25a8b187a8 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/Abs.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/Abs.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ 
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/module/modifier/Clamp.java b/src/main/java/net/yatopia/server/noise/module/modifier/Clamp.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/modifier/Clamp.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/Clamp.java
+index 09af624756f2abea19ecb82602f329dcdd05ed3a..423e1ab2c57ca5d5599507f03aaedee0a71f9891 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/Clamp.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/Clamp.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/modifier/Curve.java b/src/main/java/net/yatopia/server/noise/module/modifier/Curve.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/module/modifier/Curve.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/Curve.java
+index 30eb653a34344c8e649e87c90c62de33a2726cb5..9f06feb10f2df572cdeb7a67402c979c194c278f 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/Curve.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/Curve.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ 
+ 
+ import java.util.ArrayList;
+diff --git a/src/main/java/net/yatopia/server/module/modifier/Exponent.java b/src/main/java/net/yatopia/server/noise/module/modifier/Exponent.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/modifier/Exponent.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/Exponent.java
+index 4d86838ed9976af01a5962b42c0c57a0dedecf67..bde4a206b2676966e8533d21125b270cc95ae66b 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/Exponent.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/Exponent.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/modifier/Invert.java b/src/main/java/net/yatopia/server/noise/module/modifier/Invert.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/modifier/Invert.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/Invert.java
+index ae94a74719df2d32d19a0dab87b5634ef08c74d3..c1480ac2e54fbed48bcda93c3142b67ec65a05b9 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/Invert.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/Invert.java
+@@ -28,7 +28,7 @@
+  * THE SOFTWARE.
+  */
+ 
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/modifier/Range.java b/src/main/java/net/yatopia/server/noise/module/modifier/Range.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/modifier/Range.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/Range.java
+index 4817da61af149c5526a545c9f57f0194d90d079e..7c009265ef0f4489b090f66b1fe8e90a14390f52 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/Range.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/Range.java
+@@ -28,7 +28,7 @@
+  * THE SOFTWARE.
+  */
+ 
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/modifier/RotatePoint.java b/src/main/java/net/yatopia/server/noise/module/modifier/RotatePoint.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/module/modifier/RotatePoint.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/RotatePoint.java
+index 16c3924c128601863b2fc87a317178c6c46c214b..4171a2f36fce9aae53519081521876a4830804a2 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/RotatePoint.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/RotatePoint.java
+@@ -28,7 +28,7 @@
+  * THE SOFTWARE.
+  */
+ 
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/modifier/ScaleBias.java b/src/main/java/net/yatopia/server/noise/module/modifier/ScaleBias.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/modifier/ScaleBias.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/ScaleBias.java
+index b3fb92e1c6c40c67a124eb9e3cb0556dc5bae483..5de66f7fe7d88fdbabd790c682287883334b44b9 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/ScaleBias.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/ScaleBias.java
+@@ -28,7 +28,7 @@
+  * THE SOFTWARE.
+  */
+ 
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/modifier/ScalePoint.java b/src/main/java/net/yatopia/server/noise/module/modifier/ScalePoint.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/modifier/ScalePoint.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/ScalePoint.java
+index 4ed4fa31b49f9b49a272c90104f6df3694298895..4c07f0902fd468c9ff70ce7c73ffb1262860e65b 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/ScalePoint.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/ScalePoint.java
+@@ -28,7 +28,7 @@
+  * THE SOFTWARE.
+  */
+ 
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/modifier/Terrace.java b/src/main/java/net/yatopia/server/noise/module/modifier/Terrace.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/module/modifier/Terrace.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/Terrace.java
+index 889ff19b9c98d8740e4e065d76b94cb3e8155f0b..1d8948ddb561f87368856892859d116365ac9388 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/Terrace.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/Terrace.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.Utils;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/module/modifier/TranslatePoint.java b/src/main/java/net/yatopia/server/noise/module/modifier/TranslatePoint.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/modifier/TranslatePoint.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/TranslatePoint.java
+index c48863bf4e68846ea8cf8076506dc34ad3c8f454..0f133ba2e67c205e7df65ceabda04911b7c571d5 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/TranslatePoint.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/TranslatePoint.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/modifier/Turbulence.java b/src/main/java/net/yatopia/server/noise/module/modifier/Turbulence.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/module/modifier/Turbulence.java
+rename to src/main/java/net/yatopia/server/noise/module/modifier/Turbulence.java
+index 811a619a9875834571992eb220bdf8abfb1ba7b6..6b0e20fcd794ca09826162e263d96c602aca7cf6 100644
+--- a/src/main/java/net/yatopia/server/module/modifier/Turbulence.java
++++ b/src/main/java/net/yatopia/server/noise/module/modifier/Turbulence.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.modifier;
++package net.yatopia.server.noise.module.modifier;
+ import org.spongepowered.noise.exception.NoModuleException;
+ import org.spongepowered.noise.module.Module;
+ import org.spongepowered.noise.module.source.Perlin;
+diff --git a/src/main/java/net/yatopia/server/module/source/Billow.java b/src/main/java/net/yatopia/server/noise/module/source/Billow.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/module/source/Billow.java
+rename to src/main/java/net/yatopia/server/noise/module/source/Billow.java
+index cbfec47282902bc62a9be52da63a2d01e3e73eff..04405ef7141b5f5fedcb89853bdc0cc85aa5c95b 100644
+--- a/src/main/java/net/yatopia/server/module/source/Billow.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/Billow.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
++package net.yatopia.server.noise.module.source;
+ 
+ import org.spongepowered.noise.Noise;
+ import org.spongepowered.noise.NoiseQuality;
+diff --git a/src/main/java/net/yatopia/server/module/source/Checkerboard.java b/src/main/java/net/yatopia/server/noise/module/source/Checkerboard.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/source/Checkerboard.java
+rename to src/main/java/net/yatopia/server/noise/module/source/Checkerboard.java
+index e1fc8128bc13502675b053268deaf40dff03e4ec..9f3dadf0c4f10110d8e85b824f7af9c1971d4341 100644
+--- a/src/main/java/net/yatopia/server/module/source/Checkerboard.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/Checkerboard.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
++package net.yatopia.server.noise.module.source;
+ 
+ import org.spongepowered.noise.Utils;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/module/source/Const.java b/src/main/java/net/yatopia/server/noise/module/source/Const.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/source/Const.java
+rename to src/main/java/net/yatopia/server/noise/module/source/Const.java
+index ff3975a5f542a91389449aa1f7f3e200c5f6481c..7387dacd46c3535752bc7699cc4995c17245fd3e 100644
+--- a/src/main/java/net/yatopia/server/module/source/Const.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/Const.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
++package net.yatopia.server.noise.module.source;
+ 
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/source/Cylinders.java b/src/main/java/net/yatopia/server/noise/module/source/Cylinders.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/source/Cylinders.java
+rename to src/main/java/net/yatopia/server/noise/module/source/Cylinders.java
+index f324a883fc2e6e4aedb033d0f498d62ee2dfa077..fa0246a365ccb3291f2558ae9e2bd5c9ae2e6989 100644
+--- a/src/main/java/net/yatopia/server/module/source/Cylinders.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/Cylinders.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
++package net.yatopia.server.noise.module.source;
+ 
+ import org.spongepowered.noise.Utils;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/module/source/Perlin.java b/src/main/java/net/yatopia/server/noise/module/source/Perlin.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/module/source/Perlin.java
+rename to src/main/java/net/yatopia/server/noise/module/source/Perlin.java
+index 732d34bd845d51c5249a2c0c68cc62599d0edf6c..fe85d37fd44316debfecb05915ddcca1ec6cfeee 100644
+--- a/src/main/java/net/yatopia/server/module/source/Perlin.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/Perlin.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
++package net.yatopia.server.noise.module.source;
+ 
+ import org.spongepowered.noise.Noise;
+ import org.spongepowered.noise.NoiseQuality;
+diff --git a/src/main/java/net/yatopia/server/module/source/RidgedMulti.java b/src/main/java/net/yatopia/server/noise/module/source/RidgedMulti.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/source/RidgedMulti.java
+rename to src/main/java/net/yatopia/server/noise/module/source/RidgedMulti.java
+index 8c1673b0013e14a5829931256e3f2b9e936d70a4..719795291be6b20911aece648b434ec8134d6812 100644
+--- a/src/main/java/net/yatopia/server/module/source/RidgedMulti.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/RidgedMulti.java
+@@ -27,11 +27,12 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
++package org.spongepowered.noise.module.source;
+ 
+-
+-import net.yatopia.server.NoiseQuality;
+-import net.yatopia.server.module.*;
++import org.spongepowered.noise.Noise;
++import org.spongepowered.noise.NoiseQuality;
++import org.spongepowered.noise.Utils;
++import org.spongepowered.noise.module.Module;
+ 
+ public class RidgedMulti extends Module {
+     // Default frequency for the noise::module::RidgedMulti noise module.
+diff --git a/src/main/java/net/yatopia/server/module/source/RidgedMultiSimplex.java b/src/main/java/net/yatopia/server/noise/module/source/RidgedMultiSimplex.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/source/RidgedMultiSimplex.java
+rename to src/main/java/net/yatopia/server/noise/module/source/RidgedMultiSimplex.java
+index 7fb4822e39fcd40efbafa1964d3a371ad0786a90..1800591497c6d658fc70c0934dd8adf3c72802f9 100644
+--- a/src/main/java/net/yatopia/server/module/source/RidgedMultiSimplex.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/RidgedMultiSimplex.java
+@@ -27,9 +27,10 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
+-import net.yatopia.server.*;
+-import net.yatopia.server.NoiseQualitySimplex;
++package net.yatopia.server.noise.module.source;
++import net.yatopia.server.noise.NoiseQualitySimplex;
++import net.yatopia.server.noise.LatticeOrientation;
++import net.yatopia.server.noise.Noise;
+ import org.spongepowered.noise.Utils;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/source/Simplex.java b/src/main/java/net/yatopia/server/noise/module/source/Simplex.java
+similarity index 97%
+rename from src/main/java/net/yatopia/server/module/source/Simplex.java
+rename to src/main/java/net/yatopia/server/noise/module/source/Simplex.java
+index 383d400549d127628db793565d34bbee5b9b1130..8233492eb8a7988c573f7e98ea31bbe63ae98e8f 100644
+--- a/src/main/java/net/yatopia/server/module/source/Simplex.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/Simplex.java
+@@ -27,10 +27,11 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
+-import net.yatopia.server.*;
++package net.yatopia.server.noise.module.source;
+ 
+-import org.spongepowered.noise.Noise.*;
++import net.yatopia.server.noise.LatticeOrientation;
++import net.yatopia.server.noise.Noise;
++import net.yatopia.server.noise.NoiseQualitySimplex;
+ import org.spongepowered.noise.Utils;
+ import org.spongepowered.noise.module.Module;
+ 
+diff --git a/src/main/java/net/yatopia/server/module/source/Spheres.java b/src/main/java/net/yatopia/server/noise/module/source/Spheres.java
+similarity index 98%
+rename from src/main/java/net/yatopia/server/module/source/Spheres.java
+rename to src/main/java/net/yatopia/server/noise/module/source/Spheres.java
+index 3a440edc5d253ba233ca36b91752f8504af31999..cc2b4d29fdbf4bf2d12966cb3e5e764b1be6043c 100644
+--- a/src/main/java/net/yatopia/server/module/source/Spheres.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/Spheres.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
++package net.yatopia.server.noise.module.source;
+ 
+ import org.spongepowered.noise.Utils;
+ import org.spongepowered.noise.module.Module;
+diff --git a/src/main/java/net/yatopia/server/module/source/Voronoi.java b/src/main/java/net/yatopia/server/noise/module/source/Voronoi.java
+similarity index 99%
+rename from src/main/java/net/yatopia/server/module/source/Voronoi.java
+rename to src/main/java/net/yatopia/server/noise/module/source/Voronoi.java
+index 6922ae7f1da31be566281fb885dff64c007fe23a..4d0832980da144643806ebcba1c655dbeb80d5b9 100644
+--- a/src/main/java/net/yatopia/server/module/source/Voronoi.java
++++ b/src/main/java/net/yatopia/server/noise/module/source/Voronoi.java
+@@ -27,7 +27,7 @@
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+  */
+-package net.yatopia.server.module.source;
++package net.yatopia.server.noise.module.source;
+ 
+ import org.spongepowered.noise.Noise;
+ import org.spongepowered.noise.Utils;

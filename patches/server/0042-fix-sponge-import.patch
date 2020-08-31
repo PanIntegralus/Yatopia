@@ -1,0 +1,21 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Bud Gidiere <sgidiere@gmail.com>
+Date: Sat, 29 Aug 2020 15:06:52 -0500
+Subject: [PATCH] fix sponge import
+
+
+diff --git a/pom.xml b/pom.xml
+index a99e823d7294bc40f66d2f695a6bcb67d201ca1c..ede3f737e0c2ee62c80e7c199c21ec996cb7289e 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -185,6 +185,10 @@
+             <id>aikar</id>
+             <url>https://repo.aikar.co/nexus/content/repositories/aikar/</url>
+         </repository>
++        <repository>
++            <id>sponge</id>
++            <url>https://repo.spongepowered.org/maven/</url>
++        </repository>
+     </repositories>
+ 
+     <pluginRepositories>
